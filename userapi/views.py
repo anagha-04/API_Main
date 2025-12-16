@@ -4,9 +4,10 @@ from rest_framework.views import APIView
 from rest_framework import status
 from userapi.models import *
 from django.shortcuts import get_object_or_404
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.authentication import BasicAuthentication,TokenAuthentication
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 # Create your views here.
 
 
@@ -36,42 +37,46 @@ class LoginView(APIView):
 
         user = request.user
 
-        print(user.username)
+        token,created = Token.objects.get_or_create(user=user)
+
+        return Response({"message":"login success","token":token.key},status=status.HTTP_200_OK)
+
+        # print(user.username)
         
-        print(request.user)
+        # print(request.user)
 
         return Response({"message":"login success"})
 
 
-# class ProductAddListView(APIView):
+class ProductAddListView(APIView):
 
-#     authentication_classes = [BasicAuthentication]
+    authentication_classes = [TokenAuthentication]
 
-#     permission_classes =[IsAuthenticated]
+    permission_classes =[IsAuthenticated]
 
-#     def post(self,request):
+    def post(self,request):
 
-#         serializer = ProductSerializer(data = request.data)
+        serializer = ProductSerializer(data = request.data)
 
-#         if serializer.is_valid():
+        if serializer.is_valid():
 
-#             serializer.save(user = request.user)
+            serializer.save(user = request.user)
 
-#             return  Response(serializer.data,status=status.HTTP_201_CREATED)
+            return  Response(serializer.data,status=status.HTTP_201_CREATED)
         
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
 # # #list all the product of logined user
 # # #basic authentication
 
-#     def get(self,request):
+    def get(self,request):
 
-#         data = Productmodel.objects.filter(user= request.user)
+        data = Productmodel.objects.filter(user= request.user)
 
-#         serializer = ProductSerializer(data,many = True)
+        serializer = ProductSerializer(data,many = True)
 
-#         return Response(serializer.data,status=status.HTTP_200_OK)
+        return Response(serializer.data,status=status.HTTP_200_OK)
     
 
 # class ProductRetriveUpdateDelete(APIView):
