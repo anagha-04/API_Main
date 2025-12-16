@@ -21,7 +21,7 @@ from userapi.views import*
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('userregistration/',UserRegisterView.as_view(),name='userregistration'),
-    # path('login/',LoginView.as_view(),name="login"),
+    path('login/',LoginView.as_view(),name="login"),
     # path('add/',ProductAddListView.as_view(),name="add"),
     # path('retriveupdatedelete/<int:pk>/',ProductRetriveUpdateDelete.as_view(),name ="retriveupdatedelete")
 ]
