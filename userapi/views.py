@@ -43,35 +43,35 @@ class LoginView(APIView):
         return Response({"message":"login success"})
 
 
-# class ProductAddListView(APIView):
+class ProductAddListView(APIView):
 
-#     authentication_classes = [BasicAuthentication]
+    authentication_classes = [BasicAuthentication]
 
-#     permission_classes =[IsAuthenticated]
+    permission_classes =[IsAuthenticated]
 
-#     def post(self,request):
+    def post(self,request):
 
-#         serializer = ProductSerializer(data = request.data)
+        serializer = ProductSerializer(data = request.data)
 
-#         if serializer.is_valid():
+        if serializer.is_valid():
 
-#             serializer.save(user = request.user)
+            serializer.save(user = request.user)
 
-#             return  Response(serializer.data,status=status.HTTP_201_CREATED)
+            return  Response(serializer.data,status=status.HTTP_201_CREATED)
         
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
 # #list all the product of logined user
 # #basic authentication
 
-#     def get(self,request):
+    def get(self,request):
 
-#         data = Productmodel.objects.filter(user= request.user)
+        data = Productmodel.objects.filter(user= request.user)
 
-#         serializer = ProductSerializer(data,many = True)
+        serializer = ProductSerializer(data,many = True)
 
-#         return Response(serializer.data,status=status.HTTP_200_OK)
+        return Response(serializer.data,status=status.HTTP_200_OK)
     
 
 # class ProductRetriveUpdateDelete(APIView):

@@ -18,11 +18,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
         return user
     
-# class ProductSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
 
-#     class Meta:
+    class Meta:
 
-#         model = Productmodel
+        model = Productmodel
 
-#         exclude =('user',)   #name,price,color   user >>>authentication
+        exclude =('user',)   #name,price,color   user >>>authentication
     
