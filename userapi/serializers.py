@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from userapi.models import *
+
+
 class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
