@@ -132,7 +132,7 @@ class Productfilterbycolor(APIView):
 
         product = Productmodel.objects.filter(user= request.user)
 
-        data  = product.filter(product_color_icontains = color)
+        data  = product.filter(product_color__icontains = color)
 
         serializer = ProductSerializer(data, many = True)
 
